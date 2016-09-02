@@ -1,0 +1,2 @@
+# communication
+同一个页面之间的2个组件使用signals实现通信
