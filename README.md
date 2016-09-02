@@ -21,4 +21,25 @@
         myObject.started.remove(onStarted); //remove a single listener
         
 
-        
+ html页面中的关键代码为：
+      1.全局创建sianal对象
+         //设置数据广播
+         var broadData=new signals.Signal(); //全局数据广播对象
+         var datas={};  //总数据对象 
+         
+      2.进度条组件：加入监听函数从setState中获取数据
+         broadData.add(function(data){ //收听到数据
+                   that.setState({
+                      endValue:data.curValue,
+                   });
+                });
+      3.输入框组件：将数据放入broadData中    
+            getEndValue:function(){
+                          var curValue=this.refs.endValue.value;
+                          if(curValue <= 0) curValue=0;
+                          if(curValue >=100) curValue=100;
+                          datas.curValue=curValue; //将curValue放入总数居对象
+                          broadData.dispatch(datas); //发布数据
+                         
+            },
+      
